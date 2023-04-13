@@ -3,40 +3,50 @@ import matplotlib.pyplot as plt
 
 class Particle():
     def __init__(self, v_0, theta, x_0, y_0):
+        self.x = []
+        self.y = []
+        self.t = []
+        self.v_x = []
+        self.v_y = []
+        self.a_x = []
+        self.a_y = []
         self.v_0 = v_0
         self.theta = theta
         self.x_0 = x_0
         self.y_0 = y_0
+        self.g = 9.81
+        
+        self.t.append(0)
+        self.x.append(0)
+        self.y.append(0)
+        self.v_x = [self.v_0*np.cos((self.theta / 180)*np.pi)]
+        self.v_y = [self.v_0*np.sin((self.theta / 180)*np.pi)]
+        self.a_x.append(0)
+        self.a_y.append(9.81)
+
         print(self.v_0, self.theta, self.x_0, self.y_0)
 
-    def move(self):
-        t = [0]
-        v_x = [self.v_0*np.cos((self.theta / 180)*np.pi)]
-        v_y = [self.v_0*np.sin((self.theta / 180)*np.pi)]
-        x = [0]
-        y = [0]
-        g = 9.81
+    def __move(self):
         dt = 0.01
-        for i in range(100):
-            t.append(i*(dt))
-            v_x.append(self.v_0*np.cos((self.theta / 180)*np.pi))
-            v_y.append(v_y[i]-g*(dt))
-            x.append(x[i]+v_x[i]*(dt))
-            y.append(y[i]+v_y[i]*(dt))
+        self.t.append(self.t[-1]+dt)
+        self.v_y.append(self.v_y[-1] - self.g*dt)
+        self.v_x.append(self.v_x[-1]+self.a_x[-1]*dt)
+        self.x.append(self.x[-1] + self.v_x[-1]*dt)
+        self.y.append(self.y[-1] + self.v_y[-1]*dt)
+        
+    def plot_trajcetory(self):
         fig = plt.figure()
         ax = plt.axes()
-        ax.set(xlabel = 'y/[m]', ylabel = 'x/[m]')
+        ax.set(xlabel = 'x/[m]', ylabel = 'y/[m]')
         ax.grid()
-        plt.plot(x,y)
+        plt.plot(self.x,self.y)
         plt.show()
 
     def range(self):
-        R = (self.v_0**2)*np.cos((self.theta / 180)*np.pi)/9.81
-        print(round(R,5))
+        while(self.y[-1] >= 0):
+            self.__move()
+        return self.x[-1]
 
     def reset(self):
-        self.v_0 = 0
-        self.theta = 0
-        self.x_0 = 0
-        self.y_0 = 0
+        self.__init__(self.v_0, self.theta, self.x_0, self.y_0)
         print(self.v_0, self.theta, self.x_0, self.y_0)
