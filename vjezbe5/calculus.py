@@ -29,7 +29,7 @@ def three_point(f, x, h):
     return (f(x+h)-f(x-h))/(2*h)
 
 
-def raspon(f, g, d, h, m = 3):
+def ranger(f, g, d, h, m = 3):
     br_koraka = int(1/h)
     x = np.linspace(g, d, br_koraka)
     dfx = []
@@ -50,7 +50,6 @@ def integrate(f, d, g, n):
     dx = (g-d)/n
     sum_d_br = 0
     sum_g_br = 0
-
     for i in range(n):
         sum_d_br = sum_d_br + f(d + i*dx)*dx
         sum_g_br = sum_g_br + f(d + (i+1)*dx)*dx

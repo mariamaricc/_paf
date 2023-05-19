@@ -21,9 +21,9 @@ for i in x_os:
     y_os3.append(integral)
     y_os4.append(trap)
 
-plt.scatter(x_os, y_os, color = "red")
-plt.scatter(x_os, y_os2, color = "blue")
-plt.plot(x_os, y_os3, color = "green")
-plt.scatter(x_os, y_os4, color = "black")
+plt.scatter(x_os, y_os, color = "red", s=2*2)
+plt.scatter(x_os, y_os2, color = "blue", s=2*2)
+plt.plot(x_os, y_os3, color = "green", markersize = 50*2)
+plt.scatter(x_os, y_os4, color = "black", s=2*2)
 
 plt.show()
