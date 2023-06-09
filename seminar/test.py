@@ -1,2 +1,3 @@
 import seminar as s
-s.f(100, [0],[0],[10],10)
+
+s1 = s.gibanje(10,1,1,10)

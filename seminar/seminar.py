@@ -1,16 +1,26 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+k = 1
 
-def f(F,x,v,t,m):
+def f1(F,v,x,t):
+    return 10
+
+def f2(F,v,x,t):
+    return -k*x
+
+def gibanje(F,v,x,t,m=10):
+    t = [0]
+    v = [0]
+    x = [0]
+    a = [f2(F,v,x,t)/m]
     dt = 0.01
-    a = [F/m]
     
-    for i in range(1000):
+    for i in range(500):
         t.append(i*(dt))
-        v.append(v[i]+a[i]*(dt))
-        x.append(x[i]+v[i]*(dt))
-        a.append(F/m)
+        v.append(v[i] + a[i]*(dt))
+        x.append(x[i] + v[i]*(dt))
+        a.append(f2(F,v,x,t)/m)
 
     fig = plt.figure()
     ax = plt.axes()
@@ -32,4 +42,3 @@ def f(F,x,v,t,m):
     ax.grid()
     plt.plot(t, a)
     plt.show()
-    return F(x,v,t)
